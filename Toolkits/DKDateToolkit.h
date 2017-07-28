@@ -14,6 +14,18 @@ typedef NS_ENUM(NSInteger, ReturnDateTimeType) {
     ReturnDateTimeTypeTime /**< 需要返回时间*/
 };
 
+typedef NS_ENUM(NSUInteger, DKDateToolkitDateFormatType) {
+    DKDateToolkitDateFormatTypeHyphen = 0, /**< 连字符 -*/
+    DKDateToolkitDateFormatTypeYearMonthDayInChinese, /**< 年月日中文*/
+    DKDateToolkitDateFormatTypeDiagonal, /**< 斜线 /*/
+    DKDateToolkitDateFormatTypeNone
+};
+
+typedef NS_ENUM(NSUInteger, DKDateToolkitTimeFormatType) {
+    DKDateToolkitTimeFormatTypeColon = 0, /**< 冒号 :*/
+    DKDateToolkitTimeFormatTypeNone
+};
+
 @interface DKDateToolkit : NSObject
 
 /**
@@ -32,4 +44,17 @@ typedef NS_ENUM(NSInteger, ReturnDateTimeType) {
  *  @return 分割后的时间日期
  */
 + (NSString *)getOneTypeOfDateTime:(NSString *)dateTime returnType:(ReturnDateTimeType)returnType;
+
+/**
+ *  根据传入的时间戳与现在的时间戳进行对比，返回相应的日期相关的字符串
+ *  比如：“今天”，”昨天“， ”刚刚“ 等
+ */
++ (NSString *)dateStringWithDateTimeString:(NSString *)dateTime dateFormat:(DKDateToolkitDateFormatType)dateFormatType timeFormat:(DKDateToolkitTimeFormatType)timeFormatType needSpaceBetween:(BOOL)needSpace;
+
+/**
+ *  根据传入的时间戳与现在的时间戳进行对比，返回相应的日期相关的字符串
+ *  比如：“今天”，”昨天“， ”刚刚“ 等
+ *  注意！！传入的日期格式必须为： yyyy-MM-dd HH:mm:ss
+ */
++ (NSString *)dateStringWithDateTimeString:(NSString *)dateTime;
 @end

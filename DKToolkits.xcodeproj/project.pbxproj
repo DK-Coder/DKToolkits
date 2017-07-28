@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040AB3FB1F2B31F200ABD33F /* DKTouchIDToolkit.m in Sources */ = {isa = PBXBuildFile; fileRef = 040AB3FA1F2B31F200ABD33F /* DKTouchIDToolkit.m */; };
+		040AB4021F2B34ED00ABD33F /* DKDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 040AB4011F2B34ED00ABD33F /* DKDefine.m */; };
 		BD6844F71D41A7B90040385D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6844F61D41A7B90040385D /* main.m */; };
 		BD6844FA1D41A7B90040385D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6844F91D41A7B90040385D /* AppDelegate.m */; };
 		BD6844FD1D41A7B90040385D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD6844FC1D41A7B90040385D /* ViewController.m */; };
@@ -22,6 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040AB3F91F2B31F200ABD33F /* DKTouchIDToolkit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTouchIDToolkit.h; sourceTree = "<group>"; };
+		040AB3FA1F2B31F200ABD33F /* DKTouchIDToolkit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTouchIDToolkit.m; sourceTree = "<group>"; };
+		040AB4001F2B34ED00ABD33F /* DKDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDefine.h; sourceTree = "<group>"; };
+		040AB4011F2B34ED00ABD33F /* DKDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDefine.m; sourceTree = "<group>"; };
 		BD6844F21D41A7B90040385D /* DKToolkits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DKToolkits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD6844F61D41A7B90040385D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BD6844F81D41A7B90040385D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -102,6 +108,9 @@
 		BDB5F7841D5032A6009DAA9B /* Toolkits */ = {
 			isa = PBXGroup;
 			children = (
+				BDB5F78F1D5032A6009DAA9B /* DKToolkits.h */,
+				040AB4001F2B34ED00ABD33F /* DKDefine.h */,
+				040AB4011F2B34ED00ABD33F /* DKDefine.m */,
 				BDB5F7851D5032A6009DAA9B /* DKDateToolkit.h */,
 				BDB5F7861D5032A6009DAA9B /* DKDateToolkit.m */,
 				BDB5F7871D5032A6009DAA9B /* DKEncryptionToolkit.h */,
@@ -112,9 +121,10 @@
 				BDB5F78C1D5032A6009DAA9B /* DKStringToolkit.m */,
 				BDB5F78D1D5032A6009DAA9B /* DKSystemToolkit.h */,
 				BDB5F78E1D5032A6009DAA9B /* DKSystemToolkit.m */,
-				BDB5F78F1D5032A6009DAA9B /* DKToolkits.h */,
 				BDB5F7901D5032A6009DAA9B /* DKValidationToolkit.h */,
 				BDB5F7911D5032A6009DAA9B /* DKValidationToolkit.m */,
+				040AB3F91F2B31F200ABD33F /* DKTouchIDToolkit.h */,
+				040AB3FA1F2B31F200ABD33F /* DKTouchIDToolkit.m */,
 			);
 			path = Toolkits;
 			sourceTree = "<group>";
@@ -196,7 +206,9 @@
 				BDB5F7951D5032A6009DAA9B /* DKStringToolkit.m in Sources */,
 				BDB5F7941D5032A6009DAA9B /* DKFileToolkit.m in Sources */,
 				BDB5F7931D5032A6009DAA9B /* DKEncryptionToolkit.m in Sources */,
+				040AB4021F2B34ED00ABD33F /* DKDefine.m in Sources */,
 				BDB5F7961D5032A6009DAA9B /* DKSystemToolkit.m in Sources */,
+				040AB3FB1F2B31F200ABD33F /* DKTouchIDToolkit.m in Sources */,
 				BD6844F71D41A7B90040385D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,6 +321,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = DKToolkits/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dk-coder.DKToolkits";
@@ -320,6 +333,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = DKToolkits/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dk-coder.DKToolkits";

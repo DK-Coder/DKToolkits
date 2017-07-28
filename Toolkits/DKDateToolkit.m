@@ -9,6 +9,8 @@
 #import "DKDateToolkit.h"
 #import "DKStringToolkit.h"
 
+static NSDateFormatter *dateFormatter;
+
 @implementation DKDateToolkit
 
 + (NSString *)parseTimeToFormat:(int)formatType timeInSecond:(NSInteger)timeInSecond
@@ -68,5 +70,97 @@
         default:
             return [DKStringToolkit trimCapitalTInDateFromServer:dateTime];
     }
+}
+
++ (NSString *)dateStringWithDateTimeString:(NSString *)dateTime dateFormat:(DKDateToolkitDateFormatType)dateFormatType timeFormat:(DKDateToolkitTimeFormatType)timeFormatType needSpaceBetween:(BOOL)needSpace
+{
+    [self initDateFormatter];
+    NSString *format = [NSString stringWithFormat:@"%@%@%@", [self generateDateFormatWithType:dateFormatType], needSpace ? @" " : @"", [self generateTimeFormatWithType:timeFormatType]];
+    [dateFormatter setDateFormat:format];
+    
+    NSString *result = nil;
+    NSDate *date = [dateFormatter dateFromString:dateTime];
+    NSTimeInterval timeStamp = [date timeIntervalSince1970];
+    
+    NSDate *now = [NSDate date];
+    NSTimeInterval currentTimeStamp = [now timeIntervalSince1970];
+    // 计算当前时区与UTC的相差秒数
+    NSInteger timeZoneOffset = [[NSTimeZone localTimeZone] secondsFromGMTForDate:now];
+    // 计算差值，单位为“秒”,还要减去当前时区与utc的差值
+    NSTimeInterval minusValue = currentTimeStamp - timeStamp - timeZoneOffset;
+    if (minusValue <= 10) {
+        result = @"刚刚";
+    } else if (minusValue < 3600) {
+        result = [NSString stringWithFormat:@"%.0f分钟前", minusValue / 60];
+    } else if (minusValue < (3600 * 24)) {
+        result = [NSString stringWithFormat:@"%.0f小时前", minusValue / 3600];
+    } else if (minusValue < (3600 * 24 * 2)) {
+        result = @"昨天";
+    } else {
+        result = dateTime;
+    }
+    
+    return result;
+}
+
++ (NSString *)dateStringWithDateTimeString:(NSString *)dateTime
+{
+    return [self dateStringWithDateTimeString:dateTime dateFormat:DKDateToolkitDateFormatTypeHyphen timeFormat:DKDateToolkitTimeFormatTypeColon needSpaceBetween:YES];
+}
+
+#pragma mark - 类内部方法
++ (void)initDateFormatter
+{
+    if (!dateFormatter) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+    }
+}
+
++ (NSString *)generateDateFormatWithType:(DKDateToolkitDateFormatType)type
+{
+    NSString *formerFormatString = nil;
+    NSString *laterFormatString = nil;
+    NSString *afterDayFormatString = @"";
+    switch (type) {
+        case DKDateToolkitDateFormatTypeNone:
+            formerFormatString = @"";
+            laterFormatString = formerFormatString;
+            break;
+        case DKDateToolkitDateFormatTypeDiagonal:
+            formerFormatString = @"/";
+            laterFormatString = formerFormatString;
+            break;
+        case DKDateToolkitDateFormatTypeYearMonthDayInChinese:
+            formerFormatString = @"年";
+            laterFormatString = @"月";
+            afterDayFormatString = @"日";
+            break;
+        case DKDateToolkitDateFormatTypeHyphen:
+        default:
+            formerFormatString = @"-";
+            laterFormatString = formerFormatString;
+            break;
+    }
+    
+    return [NSString stringWithFormat:@"yyyy%@MM%@dd%@", formerFormatString, laterFormatString, afterDayFormatString];
+}
+
++ (NSString *)generateTimeFormatWithType:(DKDateToolkitTimeFormatType)type
+{
+    NSString *formerFormatString = nil;
+    NSString *laterFormatString = nil;
+    switch (type) {
+        case DKDateToolkitTimeFormatTypeNone:
+            formerFormatString = @"";
+            laterFormatString = formerFormatString;
+            break;
+        case DKDateToolkitTimeFormatTypeColon:
+        default:
+            formerFormatString = @":";
+            laterFormatString = formerFormatString;
+            break;
+    }
+    
+    return [NSString stringWithFormat:@"HH%@mm%@ss", formerFormatString, laterFormatString];
 }
 @end
