@@ -163,4 +163,48 @@ static NSDateFormatter *dateFormatter;
     
     return [NSString stringWithFormat:@"HH%@mm%@ss", formerFormatString, laterFormatString];
 }
+
+- (NSDictionary *)divideTimeIntervalFromTime:(NSString *)timeStr into:(NSUInteger)amount returnType:(Class)className
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    // 获得当前时间
+    NSDate *nowDate = [NSDate date];
+    // 格式化当前时间，返回结果为yyyy-MM-dd格式
+    NSString *nowDateString = [[[dateFormatter stringFromDate:nowDate] componentsSeparatedByString:@" "] firstObject];
+    // 将格式化后的日期拼接成当天早上八点
+    if (![timeStr containsString:@":"]) {
+        if (timeStr.length == 1) {
+            timeStr = [NSString stringWithFormat:@"0%@:00:00", timeStr];
+        } else if (timeStr.length == 2) {
+            timeStr = [timeStr stringByAppendingString:@":00:00"];
+        }
+    } else {
+        if (timeStr.length == 5) {
+            timeStr = [timeStr stringByAppendingString:@":00"];
+        }
+    }
+    NSString *todayEightAMDateString = [nowDateString stringByAppendingFormat:@" %@", timeStr];
+    NSDate *todayEightAMDate = [dateFormatter dateFromString:todayEightAMDateString];
+    // 将两个date变成秒
+    NSTimeInterval secondsFromNow = [nowDate timeIntervalSince1970];
+    NSTimeInterval secondsFromTodayEightAM = [todayEightAMDate timeIntervalSince1970];
+    // 开始划分
+    NSTimeInterval value = secondsFromNow - secondsFromTodayEightAM;
+    // 计算出每等分多少秒
+    NSTimeInterval time = value / amount;
+    NSMutableDictionary *dictResult = [[NSMutableDictionary alloc] init];
+    for (NSInteger i = 0; i < amount - 1; i++) {
+        NSTimeInterval timeInterval = time * (i + 1);
+        NSDate *date = [NSDate dateWithTimeInterval:timeInterval sinceDate:todayEightAMDate];
+        if (className == [NSString class]) {
+            NSString *dateString = [dateFormatter stringFromDate:date];
+            [dictResult setObject:@(timeInterval) forKey:dateString];
+        } else {
+            [dictResult setObject:@(timeInterval) forKey:date];
+        }
+    }
+    
+    return [dictResult copy];
+}
 @end

@@ -57,4 +57,13 @@ typedef NS_ENUM(NSUInteger, DKDateToolkitTimeFormatType) {
  *  注意！！传入的日期格式必须为： yyyy-MM-dd HH:mm:ss
  */
 + (NSString *)dateStringWithDateTimeString:(NSString *)dateTime;
+
+/**
+ *  满足奇葩需求，获取当前时间与某个时间点之间均等分后的每个时间点
+ * @param timeStr 某个时间点，可以是时间点一整串08:00:00，也可以是整点数字8，也可以是08
+ * @param amount 需要均等分成多少份的份数
+ * @param className 数组中存储的类型，默认返回NSDate，也支持NSString类型
+ * @return 返回字典中。key表示某个的时间点，value表示这个时间点距离timeStr的秒数
+ */
+- (NSDictionary *)divideTimeIntervalFromTime:(NSString *)timeStr into:(NSUInteger)amount returnType:(Class)className;
 @end
